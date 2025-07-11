@@ -14,9 +14,20 @@ public class TransactionEntity {
   private double amount;
   private String currency;
   private String status;
+
+  @Column(name = "risk_score")
+  private Double riskScore;
   // Add other fields as needed
 
   // Getters and setters
+  public Double getRiskScore() {
+    return riskScore;
+  }
+
+  public void setRiskScore(Double riskScore) {
+    this.riskScore = riskScore;
+  }
+
   public Long getId() {
     return id;
   }
