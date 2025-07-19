@@ -4,6 +4,7 @@ import com.frauddetection.dto.ModelPredictRequest;
 import com.frauddetection.dto.ModelPredictResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -11,7 +12,10 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class ModelPredictService {
   private static final Logger logger = LoggerFactory.getLogger(ModelPredictService.class);
-  private static final String PREDICT_URL = "http://127.0.0.1:8000/predict";
+
+  @Value("${model.predict.url:http://127.0.0.1:8000/predict}")
+  private String predictUrl;
+
   private final RestTemplate restTemplate;
 
   public ModelPredictService() {
@@ -29,7 +33,7 @@ public class ModelPredictService {
       headers.setContentType(MediaType.APPLICATION_JSON);
       HttpEntity<ModelPredictRequest> entity = new HttpEntity<>(request, headers);
       ResponseEntity<ModelPredictResponse> response = restTemplate.postForEntity(
-          PREDICT_URL, entity, ModelPredictResponse.class);
+          predictUrl, entity, ModelPredictResponse.class);
       if (response.getStatusCode().is2xxSuccessful()) {
         ModelPredictResponse body = response.getBody();
         if (body != null) {

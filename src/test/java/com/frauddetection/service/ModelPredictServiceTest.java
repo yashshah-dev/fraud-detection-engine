@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
@@ -27,6 +28,7 @@ class ModelPredictServiceTest {
   void setUp() {
     MockitoAnnotations.openMocks(this);
     modelPredictService = new ModelPredictService(restTemplate);
+    ReflectionTestUtils.setField(modelPredictService, "predictUrl", "http://127.0.0.1:8000/predict");
   }
 
   @Test
