@@ -21,13 +21,14 @@ public class TransactionService {
   }
 
   @Transactional
-  public void saveTransaction(TransactionRequest request, boolean flagged) {
+  public void saveTransaction(TransactionRequest request, boolean flagged, Double riskScore) {
     TransactionEntity entity = new TransactionEntity();
     entity.setTransactionId(request.getTransactionId());
     entity.setTransactionTime(request.getTransactionTime());
     entity.setAmount(request.getAmount());
     entity.setCurrency(request.getCurrency());
     entity.setStatus(flagged ? "FLAGGED" : "SUCCESS");
+    entity.setRiskScore(riskScore);
     transactionRepository.save(entity);
     if (flagged) {
       AlertEntity alert = new AlertEntity();

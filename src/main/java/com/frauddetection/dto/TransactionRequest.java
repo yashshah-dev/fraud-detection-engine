@@ -175,4 +175,14 @@ public class TransactionRequest {
     this.transactionTime = transactionTime;
   }
 
+  // For SpEL rule context: allow riskScore as a pseudo-property
+  private Double riskScore;
+
+  public Double getRiskScore() {
+    return riskScore;
+  }
+
+  public void setRiskScore(Double riskScore) {
+    this.riskScore = riskScore;
+  }
 }
